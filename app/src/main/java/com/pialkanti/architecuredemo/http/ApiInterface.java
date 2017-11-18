@@ -1,25 +1,19 @@
 package com.pialkanti.architecuredemo.http;
 
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import com.pialkanti.architecuredemo.pojo.User;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 /**
  * @author: Pial Kanti Samadder<pialkanti2012@gmail.com>
- * Date: 11/17/2017
- * Time: 5:19 PM
+ * Date: 11/18/2017
+ * Time: 10:46 AM
  */
 
-public class ApiInterface {
-    private static final String BASE_URL = "";
-    private static Retrofit mRetrofit;
-
-    public static Retrofit getInstance() {
-        if (mRetrofit == null) {
-            mRetrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return mRetrofit;
-    }
+public interface ApiInterface {
+    @GET("5a0fe45e2f00005b15ec5404")
+    Call<List<User>> getUser();
 }
