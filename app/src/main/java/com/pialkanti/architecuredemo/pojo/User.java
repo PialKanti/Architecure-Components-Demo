@@ -1,5 +1,7 @@
 package com.pialkanti.architecuredemo.pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author: Pial Kanti Samadder<pialkanti2012@gmail.com>
  * Date: 11/17/2017
@@ -7,7 +9,9 @@ package com.pialkanti.architecuredemo.pojo;
  */
 
 public class User {
+    @SerializedName("name")
     private String name;
+    @SerializedName("address")
     private String address;
 
     public String getName() {
