@@ -24,25 +24,43 @@ public class UserRepository {
     private ApiInterface api;
     private final String TAG = "UserRepo";
 
-    public UserRepository() {
-        api = ApiClient.getInstance().create(ApiInterface.class);
-    }
 
     public LiveData<List<User>> getUsers() {
         final MutableLiveData<List<User>> data = new MutableLiveData<>();
-        api.getUser().enqueue(new Callback<List<User>>() {
+        api = ApiClient.getInstance().create(ApiInterface.class);
+        api.getUsers().enqueue(new Callback<List<User>>() {
             @Override
             public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 data.setValue(response.body());
-                Log.d(TAG, "Request Successful");
+                Log.d(TAG, "Request Successful");//todo remove
+                System.out.println("Request Successful");//todo remove
             }
 
             @Override
             public void onFailure(Call<List<User>> call, Throwable t) {
-                Log.d(TAG, "Request Failed");
+                Log.d(TAG, "Request Failed");//todo remove
+                System.out.println("Request Failed");//todo remove
             }
         });
+        return data;
+    }
 
+    public LiveData<User> getUser() {
+        System.out.println("Check");
+        final MutableLiveData<User> data = new MutableLiveData<>();
+        api = ApiClient.getInstance().create(ApiInterface.class);
+        api.getUser().enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                data.setValue(response.body());
+                System.out.println("Request Successful");//todo remove
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                System.out.println("Request Failed");//todo remove
+            }
+        });
         return data;
     }
 }

@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    private static final String BASE_URL = "http://www.mocky.io/v2/";
+    private static final String BASE_URL = "https://demo2797915.mockable.io/";
     private static Retrofit mRetrofit;
 
     public static Retrofit getInstance() {

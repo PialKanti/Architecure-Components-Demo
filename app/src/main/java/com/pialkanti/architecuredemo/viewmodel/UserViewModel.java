@@ -16,21 +16,24 @@ import java.util.List;
 
 public class UserViewModel extends ViewModel {
     private LiveData<List<User>> users;
+    private LiveData<User> user;
     private UserRepository repository;
 
-    public UserViewModel() {
-        repository = new UserRepository();
-    }
-
     public void init() {
-        if (users != null) {
+        if (user != null) {
             return;
         }
-        users = repository.getUsers();
+        repository = new UserRepository();
+        //users = repository.getUsers();
+        user = repository.getUser();
     }
 
     public LiveData<List<User>> getUsers() {
         return users;
+    }
+
+    public LiveData<User> getUser() {
+        return user;
     }
 }
 

@@ -1,5 +1,7 @@
 package com.pialkanti.architecuredemo.pojo;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -10,9 +12,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
     @SerializedName("name")
-    private String name;
+    String name;
     @SerializedName("address")
-    private String address;
+    String address;
 
     public String getName() {
         return name;

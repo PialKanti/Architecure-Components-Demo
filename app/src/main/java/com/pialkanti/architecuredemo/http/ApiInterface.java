@@ -14,6 +14,8 @@ import retrofit2.http.GET;
  */
 
 public interface ApiInterface {
-    @GET("5a0fe45e2f00005b15ec5404")
-    Call<List<User>> getUser();
+    @GET("users")
+    Call<List<User>> getUsers();
+    @GET("user")
+    Call<User> getUser();
 }
