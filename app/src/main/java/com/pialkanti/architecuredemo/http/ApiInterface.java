@@ -1,8 +1,7 @@
 package com.pialkanti.architecuredemo.http;
 
 import com.pialkanti.architecuredemo.pojo.User;
-
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,7 +14,7 @@ import retrofit2.http.GET;
 
 public interface ApiInterface {
     @GET("users")
-    Call<List<User>> getUsers();
+    Call<ArrayList<User>> getUsers();
     @GET("user")
     Call<User> getUser();
 }

@@ -6,9 +6,10 @@ import android.util.Log;
 
 import com.pialkanti.architecuredemo.http.ApiClient;
 import com.pialkanti.architecuredemo.http.ApiInterface;
+import com.pialkanti.architecuredemo.http.ApiResponse;
 import com.pialkanti.architecuredemo.pojo.User;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,28 +26,30 @@ public class UserRepository {
     private final String TAG = "UserRepo";
 
 
-    public LiveData<List<User>> getUsers() {
-        final MutableLiveData<List<User>> data = new MutableLiveData<>();
+    public LiveData<ApiResponse> getUsers() {
+        final MutableLiveData<ApiResponse> data = new MutableLiveData<>();
         api = ApiClient.getInstance().create(ApiInterface.class);
-        api.getUsers().enqueue(new Callback<List<User>>() {
+        Call<ArrayList<User>> call = api.getUsers();
+        call.enqueue(new Callback<ArrayList<User>>() {
             @Override
-            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                data.setValue(response.body());
+            public void onResponse(Call<ArrayList<User>> call, Response<ArrayList<User>> response) {
+                data.setValue(new ApiResponse(response.body()));
                 Log.d(TAG, "Request Successful");//todo remove
                 System.out.println("Request Successful");//todo remove
             }
 
             @Override
-            public void onFailure(Call<List<User>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<User>> call, Throwable t) {
+                data.setValue(new ApiResponse(t));
                 Log.d(TAG, "Request Failed");//todo remove
                 System.out.println("Request Failed");//todo remove
             }
         });
+
         return data;
     }
 
     public LiveData<User> getUser() {
-        System.out.println("Check");
         final MutableLiveData<User> data = new MutableLiveData<>();
         api = ApiClient.getInstance().create(ApiInterface.class);
         api.getUser().enqueue(new Callback<User>() {

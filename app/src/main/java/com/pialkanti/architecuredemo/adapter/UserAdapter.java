@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.pialkanti.architecuredemo.R;
 import com.pialkanti.architecuredemo.pojo.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,9 +20,9 @@ import java.util.List;
  */
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
-    private List<User> users;
+    private ArrayList<User> users;
 
-    public void setUsers(List<User> users) {
+    public void setUsers(ArrayList<User> users) {
         this.users = users;
         notifyDataSetChanged();
     }
@@ -42,7 +43,11 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return users.size();
+        if (users == null) {
+            return 0;
+        } else {
+            return users.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

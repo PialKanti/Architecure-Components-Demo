@@ -11,51 +11,54 @@ import android.widget.TextView;
 
 import com.pialkanti.architecuredemo.R;
 import com.pialkanti.architecuredemo.adapter.UserAdapter;
+import com.pialkanti.architecuredemo.http.ApiClient;
 import com.pialkanti.architecuredemo.http.ApiInterface;
+import com.pialkanti.architecuredemo.http.ApiResponse;
 import com.pialkanti.architecuredemo.pojo.User;
 import com.pialkanti.architecuredemo.viewmodel.UserViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class MainActivity extends AppCompatActivity {
-    /*private RecyclerView userList;
+    private RecyclerView userList;
     private RecyclerView.LayoutManager layoutManager;
-    private UserAdapter mAdapter;*/
+    private UserAdapter mAdapter;
     private TextView text;
     private UserViewModel viewModel;
     private final String TAG = "MainActivity";
-    private ApiInterface api;
+    private ArrayList<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initialize();
+        mAdapter.setUsers(users);
         viewModel.init();
-        /*viewModel.getUsers().observe(this, new Observer<List<User>>() {
+        viewModel.getUsers().observe(this, new Observer<ApiResponse>() {
+
             @Override
-            public void onChanged(@Nullable List<User> users) {
-                //mAdapter.setUsers(users);
-            }
-        });*/
-        viewModel.getUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                text.setText(user.getName());
+            public void onChanged(@Nullable ApiResponse apiResponse) {
+                mAdapter.setUsers(apiResponse.users);
             }
         });
     }
 
     public void initialize() {
-        /*userList = (RecyclerView) findViewById(R.id.rUserList);
+        userList = (RecyclerView) findViewById(R.id.rUserList);
         layoutManager = new LinearLayoutManager(this);
-        mAdapter = new UserAdapter();*/
-        text = (TextView) findViewById(R.id.tText);
+        mAdapter = new UserAdapter();
+        /*text = (TextView) findViewById(R.id.tText);*/
         viewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         // Setting LayoutManager
-        //userList.setLayoutManager(layoutManager);
+        userList.setLayoutManager(layoutManager);
         // Setting Adapter
-        //userList.setAdapter(mAdapter);
+        userList.setAdapter(mAdapter);
 
     }
 }

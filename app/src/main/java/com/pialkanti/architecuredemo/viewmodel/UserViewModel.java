@@ -3,9 +3,11 @@ package com.pialkanti.architecuredemo.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.pialkanti.architecuredemo.http.ApiResponse;
 import com.pialkanti.architecuredemo.pojo.User;
 import com.pialkanti.architecuredemo.repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,21 +17,21 @@ import java.util.List;
  */
 
 public class UserViewModel extends ViewModel {
-    private LiveData<List<User>> users;
+    private LiveData<ApiResponse> response;
     private LiveData<User> user;
     private UserRepository repository;
 
-    public void init() {
-        if (user != null) {
-            return;
-        }
+    public UserViewModel() {
         repository = new UserRepository();
-        //users = repository.getUsers();
-        user = repository.getUser();
     }
 
-    public LiveData<List<User>> getUsers() {
-        return users;
+    public void init() {
+        response = repository.getUsers();
+        //user = repository.getUser();
+    }
+
+    public LiveData<ApiResponse> getUsers() {
+        return response;
     }
 
     public LiveData<User> getUser() {
